@@ -1,0 +1,44 @@
+create route for posting flights details data on data-base.
+1. Endpoint: 
+    
+    ~ /api/flights - Adding flight details like origin, destination, price, date-time, etc.
+
+2. Request body: 
+   
+    {
+        origin: "",
+        destination: "",
+        departureDateTime: "",
+        returnDateTime: "",  // for round-trip
+        passenger: "",
+        class: ""
+    }
+
+3. Response body: 
+
+    {
+        flights: [
+            {
+                airline: "",
+                departureAirport: "",
+                destinationAirport: "",
+                departureDateTime: "",
+                arrivalDateTime: "",
+                duration: "",
+                price: "",
+                availableSeats: "",
+                class: "",
+            },
+            {
+                airline: "",
+                departureAirport: "",
+                destinationAirport: "",
+                departureDateTime: "",
+                arrivalDateTime: "",
+                duration: "",
+                price: "",
+                availableSeats: "",
+                class: "",
+            },
+        ]
+    }
