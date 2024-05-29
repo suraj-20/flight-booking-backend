@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { connectMongoDb } = require("./config/mongoDb");
 
+const userRoute = require("./routes/userRoute");
 const flightRoute = require("./routes/flightRoute");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+app.use("/api/v1", userRoute);
 app.use("/api/v1", flightRoute);
 
 app.get("/", (req, res) => {
