@@ -26,7 +26,7 @@ const flightSchema = new mongoose.Schema({
     required: true,
   },
   arrival_date: {
-    type: Date,
+    type: String,
     required: true,
   },
   available_seats: {

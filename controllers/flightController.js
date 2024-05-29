@@ -61,49 +61,25 @@ module.exports.getFlightDetails = async (req, res) => {
 
 module.exports.searchFlights = async (req, res) => {
   try {
-    const {
-      departure_location,
-      arrival_location,
-      departure_date,
-      return_date,
-      passengers,
-      class_of_service,
-      user_id,
-    } = req.query;
-    const searchCriteria = {};
+      const {
+        departureDate,
+        arrivalDate,
+        departureAirport,
+        destinationAirport
+      } = req.body
 
-    if (departure_location) {
-      searchCriteria.departure_location = departure_location;
-    }
-    if (arrival_location) {
-      searchCriteria.arrival_location = arrival_location;
-    }
-    if (departure_date) {
-      searchCriteria.departure_date = new Date(departure_date);
-    }
-    if (return_date) {
-      searchCriteria.return_date = new Date(return_date);
-    }
-    if (class_of_service) {
-      searchCriteria.class_of_service = class_of_service;
-    }
+      const allFlights = await Flight.find({})
 
-    const flights = await Flight.find(searchCriteria);
-    const flightIds = flights.map((flight) => flight._id);
+      const fliterFlight = allFlights.filter((flight)=>
+        flight.departure_date.slice(0,10) === departureDate && 
+        flight.arrival_date.slice(0,10) === arrivalDate && 
+        flight.departure_location === departureAirport && 
+        flight.arrival_location === destinationAirport 
+      )
 
-    const flightSearch = new FlightSearch({
-      departure_location,
-      arrival_location,
-      departure_date: new Date(departure_date),
-      return_date: return_date ? new Date(return_date) : null,
-      passengers,
-      class_of_service,
-      user: user_id,
-      flights: flightIds,
-    });
 
-    await flightSearch.save();
-    res.status(200).json({ flights });
+    res.status(200).json({ fliterFlight });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
