@@ -11,8 +11,11 @@ module.exports.addFligths = async (req, res) => {
     duration,
     price,
     availableSeats,
+    flightNumber
   } = req.body;
 
+
+  console.log(req.body)
   const flights = await Flight.find({});
   let id;
 
@@ -27,13 +30,14 @@ module.exports.addFligths = async (req, res) => {
   const flight = new Flight({
     id: id,
     airline,
-    departureAirport,
-    destinationAirport,
-    departureDateTime,
-    arrivalDateTime,
-    duration,
+    departure_location: departureAirport,
+    arrival_location : destinationAirport ,
+    departure_date: departureDateTime,
+    arrival_date: arrivalDateTime,
+    available_seats : availableSeats,
+    flight_number: flightNumber,
     price,
-    availableSeats,
+    duration,
     class: req.body.class,
   });
 
