@@ -22,11 +22,11 @@ const flightSchema = new mongoose.Schema({
     trim: true,
   },
   departure_date: {
-    type: Date,
+    type: String,
     required: true,
   },
   arrival_date: {
-    type: Date,
+    type: String,
     required: true,
   },
   available_seats: {
