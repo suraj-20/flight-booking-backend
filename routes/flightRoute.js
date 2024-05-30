@@ -8,7 +8,7 @@ const {
 const router = express.Router();
 
 router.post("/flights", addFligths);
-// router.get("/flights", getFlightDetails);
+router.get("/flights", getFlightDetails);
 router.post("/search", searchFlights);
 
 module.exports = router;
