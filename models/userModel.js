@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  username: {
+  first_name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  last_name: {
     type: String,
     required: true,
     trim: true,
@@ -17,28 +22,28 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
-  first_name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  last_name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   phone_number: {
     type: String,
     required: true,
-    validate: {
-      validator: function (v) {
-        return /\d{10}/.test(v); // Simple validation for a 10-digit phone number
-      },
-      message: (props) => `${props.value} is not a valid phone number!`,
-    },
   },
   address: {
     type: String,
+    trim: true,
+  },
+  country: {
+    type: String,
+    trim: true,
+  },
+  state: {
+    type: String,
+    trim: true,
+  },
+  city: {
+    type: String,
+    trim: true,
+  },
+  pincode: {
+    type: Number,
     trim: true,
   },
   created_at: {
@@ -46,7 +51,6 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
 
 const User = mongoose.model("Users", userSchema);
 module.exports = User;

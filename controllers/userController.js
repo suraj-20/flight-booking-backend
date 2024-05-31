@@ -2,17 +2,9 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const createTokenForUser = require("../services/authentication");
 
-module.exports.userRegister = async (req, res) => {
+module.exports.handleUserRegister = async (req, res) => {
   try {
-    const {
-      username,
-      email,
-      password,
-      first_name,
-      last_name,
-      phone_number,
-      address,
-    } = req.body;
+    const { email, password, first_name, last_name, phone_number } = req.body;
 
     let existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -22,23 +14,21 @@ module.exports.userRegister = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      username,
       email,
       password: hashedPassword,
       first_name,
       last_name,
       phone_number,
-      address,
     });
 
     res.status(201).json({ message: "User registered sucessfull", user });
   } catch (error) {
-    console.log("Error in user registeration", error);
-    res.status(400).json({ message: "Error in user register", error });
+    console.error("Error in user registeration", error);
+    res.status(400).json({ message: error.message });
   }
 };
 
-module.exports.userLogin = async (req, res) => {
+module.exports.handleUserLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -65,7 +55,24 @@ module.exports.userLogin = async (req, res) => {
       .status(200)
       .json({ message: "User logged in sucessfully", user, token });
   } catch (error) {
-    console.log("Error in user login", error);
-    res.status(400).json({ message: "Error in user loggedin", error });
+    console.error("Error in user login", error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports.handleUserUpdate = async (req, res) => {
+  try {
+    const { userId, state, city, country, pincode } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { state, city, country, pincode },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "User updated successfully", updatedUser });
+  } catch (error) {
+    console.error("Error updating user information:", error);
+    res.status(400).json({ message: error.message });
   }
 };

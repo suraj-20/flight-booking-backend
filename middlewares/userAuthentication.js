@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { validateToken } = require("../services/authentication");
 
-function authenticate(req, res, next) {
+function fetchUser(req, res, next) {
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ error: "Authorization header mising" });
@@ -16,4 +16,4 @@ function authenticate(req, res, next) {
   }
 }
 
-module.exports = authenticate;
+module.exports = fetchUser;

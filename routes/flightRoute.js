@@ -1,14 +1,23 @@
 const express = require("express");
 const {
-  addFligths,
-  getFlightDetails,
   searchFlights,
+  getAllFlight,
+  addFlightDetails,
 } = require("../controllers/flightController");
+const {
+  addPassengerDetails,
+  getAllPassengers,
+} = require("../controllers/passengerController");
+const { createPayment, capturePayment } = require("../controllers/payment");
 
 const router = express.Router();
 
-router.post("/flights", addFligths);
-router.get("/flights", getFlightDetails);
-router.post("/search", searchFlights);
+router.post("/addFlightDetails", addFlightDetails);
+router.get("/getAllFlight", getAllFlight);
+router.post("/searchFlights", searchFlights);
+router.post("/addPassengerDetails", addPassengerDetails);
+router.get("/getAllPassengers", getAllPassengers);
+router.post("/createPayment", createPayment);
+router.post("/capturePayment", capturePayment);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const generateFlightId = () => {
   return crypto.randomBytes(3).toString("hex");
 };
 
-module.exports.addFligths = async (req, res) => {
+module.exports.addFlightDetails = async (req, res) => {
   try {
     const {
       airline,
@@ -46,7 +46,7 @@ module.exports.addFligths = async (req, res) => {
   }
 };
 
-module.exports.getFlightDetails = async (req, res) => {
+module.exports.getAllFlight = async (req, res) => {
   try {
     const allFlights = await Flight.find();
     res.status(200).json(allFlights);
