@@ -61,13 +61,16 @@ module.exports.handleUserLogin = async (req, res) => {
 
 module.exports.handleUserUpdate = async (req, res) => {
   try {
-    const { userId, state, city, country, pincode } = req.body;
+    const userId = req.userId
+
+    const { state, city, country, pincode } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { state, city, country, pincode },
       { new: true }
     );
+
 
     res.status(200).json({ message: "User updated successfully", updatedUser });
   } catch (error) {
