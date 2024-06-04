@@ -2,7 +2,8 @@ const Passenger = require("../models/passengerModel");
 
 module.exports.addPassengerDetails = async (req, res) => {
   try {
-    const { userId, passengers } = req.body;
+    const userId = req.userId;
+    const { passengers } = req.body;
 
     const passengerDocs = passengers.map((passenger) => ({
       ...passenger,
