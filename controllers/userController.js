@@ -49,7 +49,6 @@ module.exports.handleUserLogin = async (req, res) => {
     }
 
     const token = createTokenForUser.createToken(user);
-    // console.log("Token in user login", token);
 
     res
       .status(200)
@@ -73,6 +72,21 @@ module.exports.handleUserUpdate = async (req, res) => {
     res.status(200).json({ message: "User updated successfully", updatedUser });
   } catch (error) {
     console.error("Error updating user information:", error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports.handleGetUserDetails = async (req, res) => {
+  try {
+    // const userId = req.params;
+    const user = await User.findById(req.userId);
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error in getting user", error);
     res.status(400).json({ message: error.message });
   }
 };

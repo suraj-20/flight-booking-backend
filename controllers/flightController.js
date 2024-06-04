@@ -64,24 +64,28 @@ module.exports.searchFlights = async (req, res) => {
       destinationAirport,
       class_of_service,
     } = req.body;
+    console.log(req.body);
 
     const allFlights = await Flight.find({});
 
     if (!allFlights) {
       return res.status(400).json({ message: "Record not found!" });
     }
+    // console.log(allFlights);
 
     const fliterFlight = allFlights.filter(
       (flight) =>
-        flight.departure_date.slice(0, 10) === departureDate &&
+        flight.departure_date.slice(0, 10) === departureDate ||
         flight.arrival_date.slice(0, 10) === arrivalDate &&
         flight.departure_location === departureAirport &&
         flight.arrival_location === destinationAirport &&
         flight.class_of_service === class_of_service
     );
 
-    res.status(200).json({ fliterFlight });
+    res.status(200).json({ message: "Searched Flight", fliterFlight });
   } catch (error) {
+    console.error(error);
+    console.error(error.message);
     res.status(500).json({ message: error.message });
   }
 };

@@ -5,7 +5,7 @@ const SECRET_KEY = "THISISMYSECRETKEY";
 function createToken(user) {
   const payload = {
     _id: user._id,
-    username: user.username,
+    first_name: user.first_name,
     email: user.email,
   };
 
@@ -17,9 +17,7 @@ function createToken(user) {
 }
 
 function validateToken(token) {
-  const payload = JWT.verify(token, SECRET_KEY, {
-    expiresIn: "1h",
-  });
+  const payload = JWT.verify(token, SECRET_KEY);
   return payload;
 }
 

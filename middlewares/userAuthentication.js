@@ -8,7 +8,7 @@ function fetchUser(req, res, next) {
   } else {
     try {
       const decodedToken = validateToken(token);
-      req.userId = decodedToken.userId;
+      req.userId = decodedToken._id;
       next();
     } catch (error) {
       return res.status(401).json({ message: "Invalid token" });
