@@ -47,6 +47,9 @@ const flightSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  img:{
+    type:String
+  }
 });
 
 const Flight = mongoose.model("Flight", flightSchema);

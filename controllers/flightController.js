@@ -16,6 +16,7 @@ module.exports.addFlightDetails = async (req, res) => {
       class_of_service,
       price,
       availableSeats,
+      img
     } = req.body;
 
     console.log(req.body);
@@ -36,6 +37,7 @@ module.exports.addFlightDetails = async (req, res) => {
       flight_number: flight_id,
       price,
       class_of_service,
+      img
     });
 
     const newFlight = await flight.save();
