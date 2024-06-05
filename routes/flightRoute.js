@@ -9,7 +9,7 @@ const {
   getAllPassengers,
 } = require("../controllers/passengerController");
 const fetchUser = require("../middlewares/userAuthentication");
-const { createPayment, capturePayment } = require("../controllers/payment");
+const { createPayment, capturePayment , getAllUserPrevFlight} = require("../controllers/payment");
 
 const router = express.Router();
 
@@ -18,7 +18,8 @@ router.get("/getAllFlight", getAllFlight);
 router.post("/searchFlights", searchFlights);
 router.post("/addPassengerDetails", fetchUser, addPassengerDetails);
 router.get("/getAllPassengers", getAllPassengers);
-router.post("/createPayment", createPayment);
-router.post("/capturePayment", capturePayment);
+router.post("/createPayment", fetchUser, createPayment);
+router.get("/getAllUserPrevFlight", fetchUser, getAllUserPrevFlight);
+// router.post("/capturePayment", capturePayment);
 
 module.exports = router;

@@ -1,6 +1,18 @@
 const mongoose = require("mongoose");
 
+const passengerSchema = new mongoose.Schema({
+  title: { type: String},
+  first_name: { type: String},
+  last_name: { type: String},
+  age:{type:String},
+  gender:{type:String}
+});
+
 const bookingSchema = new mongoose.Schema({
+  bookingId: {
+    type: String,
+    require:true
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -11,13 +23,7 @@ const bookingSchema = new mongoose.Schema({
     ref: "Flight",
     require: true,
   },
-  passengers: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Passenger",
-      require: true,
-    },
-  ],
+  passengers: [passengerSchema],
   amount: {
     type: Number,
   },
